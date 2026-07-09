@@ -1,0 +1,189 @@
+<div style="padding:1rem 0">
+<h2 class="sr-only">Demo interaktif Pertamina Offshore Drilling Engineering Suite dengan empat modul: Drilling Calculator, Unit Conversion, Well Control Kill Sheet, dan Wellbore Geometry</h2>
+
+<div style="background:var(--surface-1);border-radius:12px;border:0.5px solid var(--border);overflow:hidden">
+
+<div style="background:#0B1F3A;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+  <div style="display:flex;align-items:center;gap:10px">
+    <i class="ti ti-droplet" style="font-size:22px;color:#DA251D" aria-hidden="true"></i>
+    <div>
+      <div style="font-weight:500;font-size:15px;color:#fff">Pertamina Offshore Drilling</div>
+      <div style="font-size:11px;color:#B8C2D4">Drilling Engineering Workspace</div>
+    </div>
+  </div>
+  <div id="navtabs" style="display:flex;gap:6px;background:rgba(255,255,255,0.06);border-radius:8px;padding:4px">
+    <button data-tab="calc" class="navbtn" style="border:none;cursor:pointer;font-size:12px;padding:6px 10px;border-radius:6px;display:flex;align-items:center;gap:6px;background:#DA251D;color:#fff"><i class="ti ti-calculator" style="font-size:14px" aria-hidden="true"></i>Calculator</button>
+    <button data-tab="conv" class="navbtn" style="border:none;cursor:pointer;font-size:12px;padding:6px 10px;border-radius:6px;display:flex;align-items:center;gap:6px;background:transparent;color:#D6DCE8"><i class="ti ti-ruler-2" style="font-size:14px" aria-hidden="true"></i>Conversion</button>
+    <button data-tab="kill" class="navbtn" style="border:none;cursor:pointer;font-size:12px;padding:6px 10px;border-radius:6px;display:flex;align-items:center;gap:6px;background:transparent;color:#D6DCE8"><i class="ti ti-alert-triangle" style="font-size:14px" aria-hidden="true"></i>Kill sheet</button>
+    <button data-tab="geo" class="navbtn" style="border:none;cursor:pointer;font-size:12px;padding:6px 10px;border-radius:6px;display:flex;align-items:center;gap:6px;background:transparent;color:#D6DCE8"><i class="ti ti-git-branch" style="font-size:14px" aria-hidden="true"></i>Geometry</button>
+  </div>
+</div>
+
+<div style="padding:20px">
+
+<div id="panel-calc" class="panel">
+  <div style="font-size:14px;font-weight:500;margin-bottom:12px">Drilling calculator &mdash; annular velocity</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px">
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">Flow rate (gpm)</label>
+      <input id="c-q" type="number" value="450" step="any">
+    </div>
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">Hole ID (in)</label>
+      <input id="c-dh" type="number" value="12.25" step="any">
+    </div>
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">Pipe OD (in)</label>
+      <input id="c-dp" type="number" value="5" step="any">
+    </div>
+  </div>
+  <button id="c-run" style="font-size:13px;font-weight:500">Calculate<i class="ti ti-player-play" style="font-size:14px;margin-left:6px" aria-hidden="true"></i></button>
+  <div style="margin-top:12px;background:var(--bg-success);border-radius:8px;padding:12px">
+    <div style="font-size:11px;color:var(--text-success)">Result</div>
+    <div id="c-out" style="font-size:22px;font-weight:500;color:var(--text-success)">&mdash;</div>
+  </div>
+</div>
+
+<div id="panel-conv" class="panel" style="display:none">
+  <div style="font-size:14px;font-weight:500;margin-bottom:12px">Petroleum unit conversion &mdash; pressure</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px">
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">Value (psi)</label>
+      <input id="v-val" type="number" value="350" step="any">
+    </div>
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">Convert to</label>
+      <select id="v-unit">
+        <option value="14.5038">bar</option>
+        <option value="0.145038">kPa</option>
+        <option value="0.0680460">atm</option>
+      </select>
+    </div>
+  </div>
+  <button id="v-run" style="font-size:13px;font-weight:500">Convert<i class="ti ti-player-play" style="font-size:14px;margin-left:6px" aria-hidden="true"></i></button>
+  <div style="margin-top:12px;background:var(--bg-success);border-radius:8px;padding:12px">
+    <div style="font-size:11px;color:var(--text-success)">Converted value</div>
+    <div id="v-out" style="font-size:22px;font-weight:500;color:var(--text-success)">&mdash;</div>
+  </div>
+</div>
+
+<div id="panel-kill" class="panel" style="display:none">
+  <div style="font-size:14px;font-weight:500;margin-bottom:12px">Well control kill sheet &mdash; IADC style</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px">
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">Mud weight (ppg)</label>
+      <input id="k-mw" type="number" value="9.6" step="any">
+    </div>
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">TVD (ft)</label>
+      <input id="k-tvd" type="number" value="8500" step="any">
+    </div>
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">SIDPP (psi)</label>
+      <input id="k-sidpp" type="number" value="350" step="any">
+    </div>
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">SPP (psi)</label>
+      <input id="k-spp" type="number" value="480" step="any">
+    </div>
+  </div>
+  <button id="k-run" style="font-size:13px;font-weight:500">Calculate kill sheet<i class="ti ti-player-play" style="font-size:14px;margin-left:6px" aria-hidden="true"></i></button>
+  <div id="k-out" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:12px"></div>
+</div>
+
+<div id="panel-geo" class="panel" style="display:none">
+  <div style="font-size:14px;font-weight:500;margin-bottom:12px">Wellbore geometry &mdash; annular capacity</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px">
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">Hole ID (in)</label>
+      <input id="g-dh" type="number" value="12.25" step="any">
+    </div>
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">Pipe OD (in)</label>
+      <input id="g-dp" type="number" value="5" step="any">
+    </div>
+    <div>
+      <label style="font-size:11px;color:var(--text-secondary)">Section length (ft)</label>
+      <input id="g-len" type="number" value="3500" step="any">
+    </div>
+  </div>
+  <button id="g-run" style="font-size:13px;font-weight:500">Calculate volume<i class="ti ti-player-play" style="font-size:14px;margin-left:6px" aria-hidden="true"></i></button>
+  <div style="display:flex;gap:14px;align-items:center;margin-top:12px">
+    <svg viewBox="0 0 60 120" style="width:60px;height:120px;background:var(--surface-1);border-radius:8px;flex-shrink:0">
+      <line x1="30" y1="0" x2="30" y2="120" stroke="var(--border-strong)" stroke-width="1" stroke-dasharray="3"/>
+      <rect x="14" y="0" width="32" height="14" fill="#0B1F3A"/>
+      <rect x="18" y="14" width="24" height="40" fill="#DA251D22" stroke="#DA251D" stroke-width="1"/>
+      <rect x="21" y="54" width="18" height="66" fill="#DA251D22" stroke="#DA251D" stroke-width="1"/>
+    </svg>
+    <div style="flex:1;background:var(--bg-success);border-radius:8px;padding:12px">
+      <div style="font-size:11px;color:var(--text-success)">Annular volume</div>
+      <div id="g-out" style="font-size:22px;font-weight:500;color:var(--text-success)">&mdash;</div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+document.querySelectorAll('.navbtn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.navbtn').forEach(function(b){ b.style.background='transparent'; b.style.color='#D6DCE8'; });
+    btn.style.background='#DA251D'; btn.style.color='#fff';
+    document.querySelectorAll('.panel').forEach(function(p){ p.style.display='none'; });
+    document.getElementById('panel-'+btn.dataset.tab).style.display='block';
+  });
+});
+
+document.getElementById('c-run').addEventListener('click', function(){
+  var q = parseFloat(document.getElementById('c-q').value);
+  var dh = parseFloat(document.getElementById('c-dh').value);
+  var dp = parseFloat(document.getElementById('c-dp').value);
+  var av = (24.51*q)/((dh*dh)-(dp*dp));
+  document.getElementById('c-out').textContent = av.toFixed(1) + ' ft/min';
+});
+
+document.getElementById('v-run').addEventListener('click', function(){
+  var val = parseFloat(document.getElementById('v-val').value);
+  var factor = parseFloat(document.getElementById('v-unit').value);
+  var unitLabel = document.getElementById('v-unit').selectedOptions[0].text;
+  document.getElementById('v-out').textContent = (val*factor).toFixed(2) + ' ' + unitLabel;
+});
+
+document.getElementById('k-run').addEventListener('click', function(){
+  var mw = parseFloat(document.getElementById('k-mw').value);
+  var tvd = parseFloat(document.getElementById('k-tvd').value);
+  var sidpp = parseFloat(document.getElementById('k-sidpp').value);
+  var spp = parseFloat(document.getElementById('k-spp').value);
+  var kmw = mw + (sidpp/(0.052*tvd));
+  var icp = sidpp + spp;
+  var fcp = spp * (kmw/mw);
+  var fp = 0.052*mw*tvd + sidpp;
+  var out = document.getElementById('k-out');
+  out.innerHTML = '';
+  var items = [
+    ['Kill mud weight', kmw.toFixed(2)+' ppg'],
+    ['ICP', icp.toFixed(0)+' psi'],
+    ['FCP', fcp.toFixed(0)+' psi'],
+    ['Formation pressure', fp.toFixed(0)+' psi']
+  ];
+  items.forEach(function(it){
+    var d = document.createElement('div');
+    d.style.background = 'var(--surface-1)';
+    d.style.borderRadius = '8px';
+    d.style.padding = '10px';
+    d.innerHTML = '<div style="font-size:10px;color:var(--text-muted)">'+it[0]+'</div><div style="font-size:15px;font-weight:500">'+it[1]+'</div>';
+    out.appendChild(d);
+  });
+});
+
+document.getElementById('g-run').addEventListener('click', function(){
+  var dh = parseFloat(document.getElementById('g-dh').value);
+  var dp = parseFloat(document.getElementById('g-dp').value);
+  var len = parseFloat(document.getElementById('g-len').value);
+  var cap = ((dh*dh)-(dp*dp))/1029.4;
+  var vol = cap*len;
+  document.getElementById('g-out').textContent = vol.toFixed(1) + ' bbl';
+});
+</script>
